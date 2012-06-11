@@ -4,7 +4,7 @@
   describe("miniAlert", function() {
     beforeEach(function() {
       loadFixtures('fragment.html');
-      return this.$element = $('.minialert');
+      return this.$element = $('.mini-alert');
     });
     it("should be available on the jQuery object", function() {
       return expect($.fn.miniAlert).toBeDefined();
@@ -81,8 +81,8 @@
         return this.$element.miniAlert();
       });
       it("call onLoad callback function when the close button is ready", function() {});
-      it("call onClose callback function when close button is clicked", function() {});
-      return it("call onClosed callback function when alert message has been closed", function() {});
+      it("call onHide callback function when close button is clicked", function() {});
+      return it("call onHidden callback function when alert message is hidden", function() {});
     });
   });
 

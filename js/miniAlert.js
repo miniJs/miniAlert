@@ -10,10 +10,10 @@
         cssClass: 'close',
         position: 'before',
         effect: 'fade',
-        duration: '100',
+        duration: 100,
         onLoad: function() {},
-        onClose: function() {},
-        onClosed: function() {}
+        onHide: function() {},
+        onHidden: function() {}
       };
       this.state = '';
       this.settings = {};

@@ -31,7 +31,7 @@ p {
   margin:  0 auto;
 }
 
-.alert {
+.mini-alert {
   border: 1px solid #3C3C3C;
   background-color: #FFF;
   padding: 5px 20px;

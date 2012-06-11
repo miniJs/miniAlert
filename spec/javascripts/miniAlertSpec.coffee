@@ -2,7 +2,7 @@ describe "miniAlert", ->
 
   beforeEach ->
     loadFixtures 'fragment.html'
-    @$element = $('.minialert')
+    @$element = $('.mini-alert')
 
   it "should be available on the jQuery object", ->
     expect($.fn.miniAlert).toBeDefined()
@@ -78,9 +78,9 @@ describe "miniAlert", ->
     it "call onLoad callback function when the close button is ready", ->
       # pending
 
-    it "call onClose callback function when close button is clicked", ->
+    it "call onHide callback function when close button is clicked", ->
       # pending
 
-    it "call onClosed callback function when alert message has been closed", ->
+    it "call onHidden callback function when alert message is hidden", ->
       # pending
 

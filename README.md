@@ -1,10 +1,10 @@
-# CoffeesScript jQuery Plugin Boilerplate
+# miniAlert jQuery plugin
 
-jQuery Plugin Boilerplate written in CoffeeScript to help you create plugins in a clean and quick way.
+miniAlert allows visitors to display and hide quick notification messages with a simple click.
 
 ## Verion
 
-v1.2 Stable
+coming soon
 
 ## Website Url
 
@@ -12,7 +12,7 @@ v1.2 Stable
 
 ## Bug tracker
 
-If you find a bug, please raise it the [issue here](https://github.com/miniJs/miniBoilerplate/issues) on Github! 
+If you find a bug, please raise it the [issue here](https://github.com/miniJs/miniAlert/issues) on Github! 
 
 ## Tests with Jasmine
 

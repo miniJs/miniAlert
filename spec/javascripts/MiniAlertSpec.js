@@ -43,16 +43,19 @@
         it("should add a button with 'x' as content", function() {
           return expect(this.$button).toHaveText('x');
         });
-        return it("should add a button with 'close' class", function() {
+        it("should add a button with 'close' class", function() {
           return expect(this.$button).toHaveClass('close');
         });
+        return it("should fade out the element for 100 milliseconds when button clicked", function() {});
       });
       return describe("custom options", function() {
         beforeEach(function() {
           this.options = {
             text: 'close',
             cssClass: 'hide',
-            position: 'after'
+            position: 'after',
+            effect: 'slide',
+            duration: 200
           };
           this.$element.miniAlert(this.options);
           return this.$button = this.$element.find('button');
@@ -67,12 +70,20 @@
         it("should add a button with 'close' as content", function() {
           return expect(this.$button).toHaveText(this.options.text);
         });
-        return it("should add a button with 'after' class", function() {
+        it("should add a button with 'after' class", function() {
           return expect(this.$button).toHaveClass(this.options.cssClass);
         });
+        return it("should slide up the element for 200 milliseconds when button clicked", function() {});
       });
     });
-    return describe("callbacks", function() {});
+    return describe("callbacks", function() {
+      beforeEach(function() {
+        return this.$element.miniAlert();
+      });
+      it("call onLoad callback function when the close button is ready", function() {});
+      it("call onClose callback function when close button is clicked", function() {});
+      return it("call onClosed callback function when alert message has been closed", function() {});
+    });
   });
 
 }).call(this);

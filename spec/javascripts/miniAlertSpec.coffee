@@ -40,12 +40,17 @@ describe "miniAlert", ->
       it "should add a button with 'close' class", ->
         expect(@$button).toHaveClass 'close'
 
+      it "should fade out the element for 100 milliseconds when button clicked", ->
+        # pending
+
     describe "custom options", ->
       beforeEach ->
         @options = 
           text: 'close'
           cssClass: 'hide'
           position: 'after'
+          effect:    'slide'
+          duration: 200
 
         @$element.miniAlert(@options)
         @$button = @$element.find 'button'
@@ -63,5 +68,19 @@ describe "miniAlert", ->
       it "should add a button with 'after' class", ->
         expect(@$button).toHaveClass @options.cssClass      
 
+      it "should slide up the element for 200 milliseconds when button clicked", ->
+        # pending
 
   describe "callbacks", ->
+    beforeEach ->
+        @$element.miniAlert()
+
+    it "call onLoad callback function when the close button is ready", ->
+      # pending
+
+    it "call onClose callback function when close button is clicked", ->
+      # pending
+
+    it "call onClosed callback function when alert message has been closed", ->
+      # pending
+

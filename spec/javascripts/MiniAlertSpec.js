@@ -2,37 +2,77 @@
 (function() {
 
   describe("miniAlert", function() {
-    var options;
-    options = {
-      message: 'Hello World',
-      callback: function(element, message) {
-        return $(element).append("" + message + "!");
-      }
-    };
     beforeEach(function() {
       loadFixtures('fragment.html');
-      return this.$element = $('#fixtures');
+      return this.$element = $('.minialert');
     });
     it("should be available on the jQuery object", function() {
       return expect($.fn.miniAlert).toBeDefined();
     });
     it("should be chainable", function() {
-      return expect(this.$element.miniAlert(options)).toBe(this.$element);
+      return expect(this.$element.miniAlert()).toBe(this.$element);
     });
     it("should offers default values", function() {
       var plugin;
-      plugin = new $.miniAlert(this.$element[0], options);
+      plugin = new $.miniAlert(this.$element[0]);
       return expect(plugin.defaults).toBeDefined();
     });
     it("should overwrites the settings", function() {
-      var plugin;
+      var options, plugin;
+      options = {
+        text: 'y',
+        position: 'after'
+      };
       plugin = new $.miniAlert(this.$element[0], options);
-      expect(plugin.settings.message).toBe(options.message);
-      return expect(plugin.settings.callback).toBe(options.callback);
+      expect(plugin.settings.text).toBe(options.text);
+      return expect(plugin.settings.position).toBe(options.position);
     });
-    return it("should execute the callback method", function() {
-      return expect(this.$element.miniAlert(options)).toHaveText('Hello World!');
+    describe("button", function() {
+      describe("defaults options", function() {
+        beforeEach(function() {
+          this.$element.miniAlert();
+          return this.$button = this.$element.find('button');
+        });
+        it("should add a button to the alert", function() {
+          return expect(this.$button).toExist();
+        });
+        it("should prepend the button to the alert if position is default", function() {
+          expect(this.$button.next('p')).toExist();
+          return expect(this.$button.prev('p')).not.toExist();
+        });
+        it("should add a button with 'x' as content", function() {
+          return expect(this.$button).toHaveText('x');
+        });
+        return it("should add a button with 'close' class", function() {
+          return expect(this.$button).toHaveClass('close');
+        });
+      });
+      return describe("custom options", function() {
+        beforeEach(function() {
+          this.options = {
+            text: 'close',
+            cssClass: 'hide',
+            position: 'after'
+          };
+          this.$element.miniAlert(this.options);
+          return this.$button = this.$element.find('button');
+        });
+        it("should add a button to the alert", function() {
+          return expect(this.$button).toExist();
+        });
+        it("should append the button to the alert if position is 'after", function() {
+          expect(this.$button.prev('p')).toExist();
+          return expect(this.$button.next('p')).not.toExist();
+        });
+        it("should add a button with 'close' as content", function() {
+          return expect(this.$button).toHaveText(this.options.text);
+        });
+        return it("should add a button with 'after' class", function() {
+          return expect(this.$button).toHaveClass(this.options.cssClass);
+        });
+      });
     });
+    return describe("callbacks", function() {});
   });
 
 }).call(this);

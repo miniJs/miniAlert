@@ -10,8 +10,14 @@ jQuery ->
   $.miniAlert = (element, options) ->
     # default plugin settings
     @defaults = 
-      message: 'hellow word'  # option description
-      callback: ->            # callback description
+      text:     'x'       # close button text content
+      cssClass: 'close'   # close button css class
+      position: 'before'  # option description
+      effect:   'fade'    # closing effect: 'fade' | 'slide'
+      duration: '100'     # effect duration
+      onLoad:   ->        # callback called when the close button has been added
+      onClose:  ->        # callback called when close button is clicked
+      onClosed: ->        # callback called when alert message has been closed
 
     # current state
     @state = ''
@@ -29,8 +35,7 @@ jQuery ->
     @getState = -> state
 
     # get particular plugin setting
-    @getSetting = (settingKey) ->
-      @settings[settingKey]
+    @getSetting = (settingKey) -> @settings[settingKey]
 
     # call one of the plugin setting functions
     @callSettingFunction = (functionName, args = []) ->
@@ -38,15 +43,18 @@ jQuery ->
 
     init = =>
       @settings = $.extend({}, @defaults, options)
-      @callSettingFunction('callback', [@$element, @getSetting('message')]) 
+      $button = $('<button />', {class: @settings.cssClass, text: @settings.text})
+      if @settings.position is 'after'
+        $button.appendTo @$element
+      else
+        $button.prependTo @$element      
 
-    # initialise the plugin
     init()
 
     this
 
   $.fn.miniAlert = (options) ->
     this.each ->
-      if undefined == ($ this).data('pluginName')
+      if undefined == ($ this).data('miniAlert')
         plugin = new $.miniAlert this, options
         ($ this).data 'miniAlert', plugin

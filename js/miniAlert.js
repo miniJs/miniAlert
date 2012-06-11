@@ -6,8 +6,14 @@
       var init, setState,
         _this = this;
       this.defaults = {
-        message: 'hellow word',
-        callback: function() {}
+        text: 'x',
+        cssClass: 'close',
+        position: 'before',
+        effect: 'fade',
+        duration: '100',
+        onLoad: function() {},
+        onClose: function() {},
+        onClosed: function() {}
       };
       this.state = '';
       this.settings = {};
@@ -28,8 +34,17 @@
         return this.settings[functionName].apply(this, args);
       };
       init = function() {
+        var $button;
         _this.settings = $.extend({}, _this.defaults, options);
-        return _this.callSettingFunction('callback', [_this.$element, _this.getSetting('message')]);
+        $button = $('<button />', {
+          "class": _this.settings.cssClass,
+          text: _this.settings.text
+        });
+        if (_this.settings.position === 'after') {
+          return $button.appendTo(_this.$element);
+        } else {
+          return $button.prependTo(_this.$element);
+        }
       };
       init();
       return this;
@@ -37,7 +52,7 @@
     return $.fn.miniAlert = function(options) {
       return this.each(function() {
         var plugin;
-        if (void 0 === ($(this)).data('pluginName')) {
+        if (void 0 === ($(this)).data('miniAlert')) {
           plugin = new $.miniAlert(this, options);
           return ($(this)).data('miniAlert', plugin);
         }

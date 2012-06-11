@@ -14,21 +14,11 @@ coming soon
 
 If you find a bug, please raise it the [issue here](https://github.com/miniJs/miniAlert/issues) on Github! 
 
-## Tests with Jasmine
+## TODO
 
-The boilerplate also encourages you to write tests for your plugin with [Jasmine](http://pivotal.github.com/jasmine/).
-
-To be able to run the test suite, you'll need to install the Jasmine gem. If you have bundler installed just follow these instructions:
-
-- run `bundle install`
-- run `rake jasmine` and go to 'http://localhost:8888/'
-
-### Using Guard Jasmine
-
-Guard automatically tests your Jasmine specs when files are modified which will significantly increase your productivity.
-
-- intall [phantomjs](http://phantomjs.org/) or just run `brew install phantomjs`
-- run `guard` from the plugin directory
+- Add 'easing' option
+- Release Beta version
+- Release Stable version
 
 ## Developer
 

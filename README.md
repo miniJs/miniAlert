@@ -4,11 +4,11 @@ miniAlert allows visitors to display and hide quick notification messages with a
 
 ## Verion
 
-coming soon
+v0.1 Beta
 
 ## Website Url
 
-[minijs.com](http://minijs.com/)
+http://minijs.com/plugins/10/alert
 
 ## Bug tracker
 
@@ -16,9 +16,8 @@ If you find a bug, please raise it the [issue here](https://github.com/miniJs/mi
 
 ## TODO
 
-- Add 'easing' option
-- Release Beta version
 - Release Stable version
+- Add 'easing' option
 
 ## Developer
 

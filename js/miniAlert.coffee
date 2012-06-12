@@ -1,8 +1,9 @@
 #
-# CoffeeScript jQuery Plugin Boilerplace
-# Author:    Matthieu Aussaguel, http://www.mynameismatthieu.com, @mattaussaguel
-# Version:   1.2 Stable
-# Updated:   June 11, 2012
+# miniAlert, an alert plugin for jQuery
+# Instructions: http://minijs.com/plugins/10/alert
+# By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @mattaussaguel
+# Version: v0.1 Beta
+# Updated: June 12, 2012
 # More info: http://minijs.com/
 #
 

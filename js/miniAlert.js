@@ -3,7 +3,7 @@
 
   jQuery(function() {
     $.miniAlert = function(element, options) {
-      var init, setState,
+      var init, removeElement, setState,
         _this = this;
       this.defaults = {
         text: 'x',
@@ -29,32 +29,37 @@
       };
       this.callSettingFunction = function(functionName, args) {
         if (args == null) {
-          args = [];
+          args = [this.$element, this.$button];
         }
         return this.settings[functionName].apply(this, args);
       };
+      removeElement = function() {
+        _this.$element.remove();
+        return _this.callSettingFunction('onHidden', []);
+      };
       init = function() {
-        var $button;
         _this.settings = $.extend({}, _this.defaults, options);
-        $button = $('<button />', {
+        _this.$button = $('<button />', {
           "class": _this.settings.cssClass,
           text: _this.settings.text
         });
         if (_this.settings.position === 'after') {
-          $button.appendTo(_this.$element);
+          _this.$button.appendTo(_this.$element);
         } else {
-          $button.prependTo(_this.$element);
+          _this.$button.prependTo(_this.$element);
         }
-        return $button.bind('click', function(e) {
+        _this.$button.bind('click', function(e) {
+          _this.callSettingFunction('onHide');
           e.preventDefault();
           if (_this.settings.effect === 'fade') {
-            return _this.$element.fadeOut(_this.settings.duration);
+            return _this.$element.fadeOut(_this.settings.duration, removeElement);
           } else if (_this.settings.effect === 'slide') {
-            return _this.$element.slideUp(_this.settings.duration);
+            return _this.$element.slideUp(_this.settings.duration, removeElement);
           } else {
-            return _this.$element.remove();
+            return removeElement();
           }
         });
+        return _this.callSettingFunction('onLoad');
       };
       init();
       return this;

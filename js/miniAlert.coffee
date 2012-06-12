@@ -38,27 +38,34 @@ jQuery ->
     @getSetting = (settingKey) -> @settings[settingKey]
 
     # call one of the plugin setting functions
-    @callSettingFunction = (functionName, args = []) ->
+    @callSettingFunction = (functionName, args = [@$element, @$button]) ->
       @settings[functionName].apply(this, args)
+
+    removeElement = =>
+      @$element.remove()
+      @callSettingFunction 'onHidden', []
 
     init = =>
       @settings = $.extend({}, @defaults, options)
-      $button   = $('<button />', {class: @settings.cssClass, text: @settings.text})
+      @$button   = $('<button />', {class: @settings.cssClass, text: @settings.text})
 
       if @settings.position is 'after'
-        $button.appendTo @$element
+        @$button.appendTo @$element
       else
-        $button.prependTo @$element 
+        @$button.prependTo @$element 
 
-      $button.bind('click', (e) =>
+      @$button.bind('click', (e) =>
+        @callSettingFunction 'onHide'
         e.preventDefault()
         if @settings.effect is 'fade'
-          @$element.fadeOut(@settings.duration)
+          @$element.fadeOut @settings.duration, removeElement
         else if @settings.effect is 'slide'
-          @$element.slideUp(@settings.duration)
+          @$element.slideUp @settings.duration, removeElement
         else
-          @$element.remove()
-      )     
+          removeElement()
+      )
+
+      @callSettingFunction 'onLoad'
 
     init()
 

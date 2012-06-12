@@ -87,7 +87,7 @@
           });
           spyOn(plugin.$element, 'slideUp');
           this.$element.find('button').click();
-          return expect(plugin.$element.slideUp).toHaveBeenCalledWith(200);
+          return expect(plugin.$element.slideUp).toHaveBeenCalledWith(200, jasmine.any(Function));
         });
         return it("should fade out the element for 100 milliseconds when button clicked", function() {
           var plugin;
@@ -96,17 +96,43 @@
           });
           spyOn(plugin.$element, 'fadeOut');
           this.$element.find('button').click();
-          return expect(plugin.$element.fadeOut).toHaveBeenCalledWith(100);
+          return expect(plugin.$element.fadeOut).toHaveBeenCalledWith(100, jasmine.any(Function));
         });
       });
     });
     return describe("callbacks", function() {
       beforeEach(function() {
-        return this.$element.miniAlert();
+        return this.foo = jasmine.createSpy('foo');
       });
-      xit("call onLoad callback function when the close button is ready", function() {});
-      xit("call onHide callback function when close button is clicked", function() {});
-      return xit("call onHidden callback function when alert message is hidden", function() {});
+      it("should call onLoad callback function when the close button is ready", function() {
+        var plugin;
+        plugin = new $.miniAlert(this.$element, {
+          onLoad: this.foo
+        });
+        expect(this.foo).toHaveBeenCalled();
+        expect(this.foo.mostRecentCall.args[0]).toBe(this.$element);
+        return expect(this.foo.mostRecentCall.args[1]).toBe(this.$element.find('button'));
+      });
+      it("should call onHide callback function when close button is clicked", function() {
+        var plugin;
+        plugin = new $.miniAlert(this.$element, {
+          onHide: this.foo
+        });
+        expect(this.foo).not.toHaveBeenCalled();
+        this.$element.find('button').click();
+        expect(this.foo).toHaveBeenCalled();
+        expect(this.foo.mostRecentCall.args[0]).toBe(this.$element);
+        return expect(this.foo.mostRecentCall.args[1]).toBe(this.$element.find('button'));
+      });
+      return it("should call onHidden callback function when alert message is hidden", function() {
+        var plugin;
+        plugin = new $.miniAlert(this.$element, {
+          onHidden: this.foo
+        });
+        this.$element.find('button').click();
+        expect(this.foo).toHaveBeenCalled();
+        return expect(this.foo.mostRecentCall.args.length).toEqual(0);
+      });
     });
   });
 

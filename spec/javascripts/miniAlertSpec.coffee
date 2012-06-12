@@ -74,25 +74,39 @@ describe "miniAlert", ->
         spyOn(plugin.$element, 'slideUp')
         @$element.find('button').click()
 
-        expect(plugin.$element.slideUp).toHaveBeenCalledWith(200)
+        expect(plugin.$element.slideUp).toHaveBeenCalledWith(200, jasmine.any(Function))
 
       it "should fade out the element for 100 milliseconds when button clicked", ->
         plugin = new $.miniAlert(@$element, {effect: 'fade'})
         spyOn(plugin.$element, 'fadeOut')
         @$element.find('button').click()
 
-        expect(plugin.$element.fadeOut).toHaveBeenCalledWith(100)
+        expect(plugin.$element.fadeOut).toHaveBeenCalledWith(100, jasmine.any(Function))
 
   describe "callbacks", ->
     beforeEach ->
-        @$element.miniAlert()
+      @foo = jasmine.createSpy('foo')
 
-    xit "call onLoad callback function when the close button is ready", ->
-      # pending
+    it "should call onLoad callback function when the close button is ready", ->
+      plugin = new $.miniAlert(@$element, {onLoad: @foo})
+      expect(@foo).toHaveBeenCalled()
+      expect(@foo.mostRecentCall.args[0]).toBe @$element
+      expect(@foo.mostRecentCall.args[1]).toBe @$element.find('button')
 
-    xit "call onHide callback function when close button is clicked", ->
-      # pending
 
-    xit "call onHidden callback function when alert message is hidden", ->
-      # pending
+    it "should call onHide callback function when close button is clicked", ->
+      plugin = new $.miniAlert(@$element, {onHide: @foo})
+      expect(@foo).not.toHaveBeenCalled()
+
+      @$element.find('button').click()
+      expect(@foo).toHaveBeenCalled()
+      expect(@foo.mostRecentCall.args[0]).toBe @$element
+      expect(@foo.mostRecentCall.args[1]).toBe @$element.find('button')
+
+    it "should call onHidden callback function when alert message is hidden", ->
+      plugin = new $.miniAlert(@$element, {onHidden: @foo})
+
+      @$element.find('button').click()
+      expect(@foo).toHaveBeenCalled()
+      expect(@foo.mostRecentCall.args.length).toEqual(0)
 

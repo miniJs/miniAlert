@@ -13,7 +13,7 @@ jQuery ->
       text:     'x'       # close button text content
       cssClass: 'close'   # close button css class
       position: 'before'  # close button position: 'before' | 'after'
-      effect:   'fade'    # closing effect: 'fade' | 'slide'
+      effect:   'basic'    # closing effect: 'basic' | fade' | 'slide'
       duration: 100       # hide animation duration in milliseconds
       onLoad:   ->        # callback called when the close button has been added
       onHide:   ->        # callback called when close button is clicked
@@ -43,11 +43,22 @@ jQuery ->
 
     init = =>
       @settings = $.extend({}, @defaults, options)
-      $button = $('<button />', {class: @settings.cssClass, text: @settings.text})
+      $button   = $('<button />', {class: @settings.cssClass, text: @settings.text})
+
       if @settings.position is 'after'
         $button.appendTo @$element
       else
-        $button.prependTo @$element      
+        $button.prependTo @$element 
+
+      $button.bind('click', (e) =>
+        e.preventDefault()
+        if @settings.effect is 'fade'
+          @$element.fadeOut(@settings.duration)
+        else if @settings.effect is 'slide'
+          @$element.slideUp(@settings.duration)
+        else
+          @$element.remove()
+      )     
 
     init()
 

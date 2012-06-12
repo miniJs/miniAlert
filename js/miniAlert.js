@@ -9,7 +9,7 @@
         text: 'x',
         cssClass: 'close',
         position: 'before',
-        effect: 'fade',
+        effect: 'basic',
         duration: 100,
         onLoad: function() {},
         onHide: function() {},
@@ -41,10 +41,20 @@
           text: _this.settings.text
         });
         if (_this.settings.position === 'after') {
-          return $button.appendTo(_this.$element);
+          $button.appendTo(_this.$element);
         } else {
-          return $button.prependTo(_this.$element);
+          $button.prependTo(_this.$element);
         }
+        return $button.bind('click', function(e) {
+          e.preventDefault();
+          if (_this.settings.effect === 'fade') {
+            return _this.$element.fadeOut(_this.settings.duration);
+          } else if (_this.settings.effect === 'slide') {
+            return _this.$element.slideUp(_this.settings.duration);
+          } else {
+            return _this.$element.remove();
+          }
+        });
       };
       init();
       return this;

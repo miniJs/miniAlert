@@ -30,14 +30,14 @@
     describe("button", function() {
       describe("defaults options", function() {
         beforeEach(function() {
-          this.$element.miniAlert();
+          this.plugin = new $.miniAlert(this.$element, this.options);
           return this.$button = this.$element.find('button');
         });
         it("should add a button to the alert", function() {
           return expect(this.$button).toExist();
         });
         it("should prepend the button to the alert if position is default", function() {
-          expect(this.$button.next('p')).toExist();
+          expect(this.$button.next('h1')).toExist();
           return expect(this.$button.prev('p')).not.toExist();
         });
         it("should add a button with 'x' as content", function() {
@@ -46,43 +46,67 @@
         it("should add a button with 'close' class", function() {
           return expect(this.$button).toHaveClass('close');
         });
-        return it("should fade out the element for 100 milliseconds when button clicked", function() {});
+        it("should prevent default on click event", function() {
+          spyOnEvent(this.$button, 'click');
+          this.$button.click();
+          return expect('click').toHaveBeenPreventedOn(this.$button);
+        });
+        return it("should fade out the element for 100 milliseconds when button clicked", function() {
+          spyOn(this.plugin.$element, 'remove');
+          this.$button.click();
+          return expect(this.plugin.$element.remove).toHaveBeenCalled();
+        });
       });
       return describe("custom options", function() {
-        beforeEach(function() {
-          this.options = {
-            text: 'close',
-            cssClass: 'hide',
-            position: 'after',
-            effect: 'slide',
-            duration: 200
-          };
-          this.$element.miniAlert(this.options);
-          return this.$button = this.$element.find('button');
-        });
-        it("should add a button to the alert", function() {
-          return expect(this.$button).toExist();
-        });
         it("should append the button to the alert if position is 'after", function() {
-          expect(this.$button.prev('p')).toExist();
-          return expect(this.$button.next('p')).not.toExist();
+          var $button;
+          this.$element.miniAlert({
+            position: 'after'
+          });
+          $button = this.$element.find('button');
+          expect($button.prev('p')).toExist();
+          return expect($button.next()).not.toExist();
         });
         it("should add a button with 'close' as content", function() {
-          return expect(this.$button).toHaveText(this.options.text);
+          this.$element.miniAlert({
+            text: 'close'
+          });
+          return expect(this.$element.find('button')).toHaveText('close');
         });
-        it("should add a button with 'after' class", function() {
-          return expect(this.$button).toHaveClass(this.options.cssClass);
+        it("should add a button with 'hide' class", function() {
+          this.$element.miniAlert({
+            cssClass: 'hide'
+          });
+          return expect(this.$element.find('button')).toHaveClass('hide');
         });
-        return it("should slide up the element for 200 milliseconds when button clicked", function() {});
+        it("should slide up the element for 200 milliseconds when button clicked", function() {
+          var plugin;
+          plugin = new $.miniAlert(this.$element, {
+            effect: 'slide',
+            duration: 200
+          });
+          spyOn(plugin.$element, 'slideUp');
+          this.$element.find('button').click();
+          return expect(plugin.$element.slideUp).toHaveBeenCalledWith(200);
+        });
+        return it("should fade out the element for 100 milliseconds when button clicked", function() {
+          var plugin;
+          plugin = new $.miniAlert(this.$element, {
+            effect: 'fade'
+          });
+          spyOn(plugin.$element, 'fadeOut');
+          this.$element.find('button').click();
+          return expect(plugin.$element.fadeOut).toHaveBeenCalledWith(100);
+        });
       });
     });
     return describe("callbacks", function() {
       beforeEach(function() {
         return this.$element.miniAlert();
       });
-      it("call onLoad callback function when the close button is ready", function() {});
-      it("call onHide callback function when close button is clicked", function() {});
-      return it("call onHidden callback function when alert message is hidden", function() {});
+      xit("call onLoad callback function when the close button is ready", function() {});
+      xit("call onHide callback function when close button is clicked", function() {});
+      return xit("call onHidden callback function when alert message is hidden", function() {});
     });
   });
 

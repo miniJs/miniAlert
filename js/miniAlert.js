@@ -3,7 +3,7 @@
 
   jQuery(function() {
     $.miniAlert = function(element, options) {
-      var init, removeElement, setState,
+      var addButton, bindButtonEvent, init, removeElement, setState,
         _this = this;
       this.defaults = {
         text: 'x',
@@ -35,22 +35,26 @@
       };
       removeElement = function() {
         _this.$element.remove();
+        setState('hidden');
         return _this.callSettingFunction('onHidden', []);
       };
-      init = function() {
-        _this.settings = $.extend({}, _this.defaults, options);
-        _this.$button = $('<button />', {
+      addButton = function() {
+        options = {
           "class": _this.settings.cssClass,
           text: _this.settings.text
-        });
+        };
+        _this.$button = $('<button />', options);
         if (_this.settings.position === 'after') {
-          _this.$button.appendTo(_this.$element);
+          return _this.$button.appendTo(_this.$element);
         } else {
-          _this.$button.prependTo(_this.$element);
+          return _this.$button.prependTo(_this.$element);
         }
-        _this.$button.bind('click', function(e) {
-          _this.callSettingFunction('onHide');
+      };
+      bindButtonEvent = function() {
+        return _this.$button.bind('click', function(e) {
           e.preventDefault();
+          setState('hiding');
+          _this.callSettingFunction('onHide');
           if (_this.settings.effect === 'fade') {
             return _this.$element.fadeOut(_this.settings.duration, removeElement);
           } else if (_this.settings.effect === 'slide') {
@@ -59,6 +63,13 @@
             return removeElement();
           }
         });
+      };
+      init = function() {
+        setState('loading');
+        _this.settings = $.extend({}, _this.defaults, options);
+        addButton();
+        bindButtonEvent();
+        setState('loaded');
         return _this.callSettingFunction('onLoad');
       };
       init();

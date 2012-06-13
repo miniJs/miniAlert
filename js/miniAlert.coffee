@@ -20,52 +20,59 @@ jQuery ->
       onHide:   ->        # callback called when close button is clicked
       onHidden: ->        # callback called when alert message is hidden
 
-    # current state
     @state = ''
 
-    # plugin settings
     @settings = {}
 
-    # jQuery version of DOM element attached to the plugin
     @$element = $ element
 
-    # set current state
     setState = (@state) ->
 
-    #get current state
     @getState = -> state
 
-    # get particular plugin setting
     @getSetting = (settingKey) -> @settings[settingKey]
 
-    # call one of the plugin setting functions
     @callSettingFunction = (functionName, args = [@$element, @$button]) ->
       @settings[functionName].apply(this, args)
 
     removeElement = =>
       @$element.remove()
+
+      setState 'hidden'
       @callSettingFunction 'onHidden', []
 
-    init = =>
-      @settings = $.extend({}, @defaults, options)
-      @$button   = $('<button />', {class: @settings.cssClass, text: @settings.text})
+    addButton = =>
+      options = { class: @settings.cssClass, text: @settings.text }
+      @$button   = $('<button />', options)
 
       if @settings.position is 'after'
         @$button.appendTo @$element
       else
-        @$button.prependTo @$element 
+        @$button.prependTo @$element
 
-      @$button.bind('click', (e) =>
-        @callSettingFunction 'onHide'
+    bindButtonEvent = =>
+      @$button.bind 'click', (e) =>
         e.preventDefault()
+
+        setState 'hiding'
+        @callSettingFunction 'onHide'
+
         if @settings.effect is 'fade'
           @$element.fadeOut @settings.duration, removeElement
         else if @settings.effect is 'slide'
           @$element.slideUp @settings.duration, removeElement
         else
           removeElement()
-      )
 
+    init = =>   
+      setState 'loading'
+
+      @settings = $.extend({}, @defaults, options)
+
+      addButton()
+      bindButtonEvent()
+
+      setState 'loaded'
       @callSettingFunction 'onLoad'
 
     init()

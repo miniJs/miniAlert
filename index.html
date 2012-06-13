@@ -43,6 +43,7 @@
     </div>
 
     <footer>
+      brought to you by <a href="http://minijs.com" target="_blank">minijs.com</a>
     </footer>
   </div>
 
@@ -50,9 +51,26 @@
   <script src="js/miniAlert.js"></script>
   <script>
   $(function() {
+    // Default options
     $('#alert-1').miniAlert();
-    $('#alert-2').miniAlert();
-    $('#alert-3').miniAlert();
+
+    // Custom options
+    $('#alert-2').miniAlert({
+        text: 'close',
+        position: 'after',
+        effect: 'fade',
+        duration: 300
+    });
+
+    // Custom callback functions
+    $('#alert-3').miniAlert({
+      effect: 'slide',
+      duration: 1000,
+      onHide: function(element, button) {
+        element.find('h2, p').animate({opacity: 0}, 500);
+        button.animate({opacity: 0}, 100);
+      }
+    });
   });
   </script>
 

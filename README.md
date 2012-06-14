@@ -1,4 +1,5 @@
-# miniAlert jQuery plugin
+# [miniAlert jQuery plugin](http://minijs.com/plugins/10/alert) [![Build Status](https://secure.travis-ci.org/matthieua/miniAlert.png)](http://travis-ci.org/matthieua/miniAlert)
+
 
 miniAlert allows visitors to display and hide quick notification messages with a simple click.
 

@@ -5,7 +5,7 @@ miniAlert allows visitors to display and hide quick notification messages with a
 
 ## Verion
 
-v0.1 Beta
+v1.0 stable
 
 ## Website Url
 

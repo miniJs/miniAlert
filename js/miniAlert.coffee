@@ -2,8 +2,7 @@
 # miniAlert, an alert plugin for jQuery
 # Instructions: http://minijs.com/plugins/10/alert
 # By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @mattaussaguel
-# Version: v0.1 Beta
-# Updated: June 12, 2012
+# Version: v1.0 stable
 # More info: http://minijs.com/
 #
 

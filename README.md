@@ -15,9 +15,12 @@ http://minijs.com/plugins/10/alert
 
 If you find a bug, please raise it the [issue here](https://github.com/miniJs/miniAlert/issues) on Github! 
 
+## TDD instructions
+
+[MiniBoilerplate](http://miniboilerplate.com/) is used to create and maintain the plugin. Follow the instructions on the [website](http://miniboilerplate.com/) if you want to contribute or apply your own changes.
+
 ## TODO
 
-- Release Stable version
 - Add 'easing' option
 
 ## Developer

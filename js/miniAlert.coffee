@@ -12,8 +12,8 @@ jQuery ->
     @defaults = 
       text:     'x'       # close button text content
       cssClass: 'close'   # close button css class
-      position: 'before'  # close button position: 'before' | 'after'
-      effect:   'basic'   # closing effect: 'basic' | fade' | 'slide'
+      position: 'before'  # close button position: 'before' or 'after'
+      effect:   'basic'   # closing effect: 'basic' or fade' or 'slide'
       duration: 100       # hide animation duration in milliseconds
       onLoad:   ->        # callback called when the close button has been added
       onHide:   ->        # callback called when close button is clicked
